@@ -1,7 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
-// scoped styles using module
 import styles from './TheNavigation.module.scss';
 
 interface Props {}

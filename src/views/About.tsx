@@ -1,9 +1,6 @@
 import React from 'react';
-
-// styles
 import './About.scss';
 
-// component
 const About: React.FC = () => {
 	return (
 		<article className="about">

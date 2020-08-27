@@ -1,5 +1,5 @@
 /**
- * Beautiful melodies for them ear holes in you head
+ * Song interface
  */
 export interface Song {
 	id: number;
@@ -8,10 +8,4 @@ export interface Song {
 	artwork?: string;
 	title: string;
 	album: string;
-}
-
-export interface User {
-	firstName: string;
-	lastName: string;
-	favoriteSong?: Song;
 }

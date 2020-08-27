@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from 'react';
-
-// styles
+import React, { useState } from 'react';
 import './Home.scss';
-
-// assets
 import logo from '../assets/logo.svg';
 
 const Home: React.FC = () => {
 	const [title] = useState('React Tunes');
-
-	// change title with state
-	// useEffect(() => {
-	// 	document.title = title;
-	// });
 
 	return (
 		<div className="home">

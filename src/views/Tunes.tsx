@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { Song } from '../types';
 import axios from 'axios';
-
-// children
 import TunesSearchForm from '../components/tunes/TunesSearchForm';
 import TunesList from '../components/tunes/TunesList';
 
-// data types
 interface SongFromITunes {
 	trackId: number;
 	artistName: string;
@@ -17,12 +14,9 @@ interface SongFromITunes {
 	kind?: string;
 }
 
-// component
 const Tunes: React.FC = () => {
-	// state
 	const [songs, setSongs] = useState([]);
 
-	// callback
 	const handleSearch = (query: string) => {
 		axios
 			.get(
@@ -45,14 +39,12 @@ const Tunes: React.FC = () => {
 		artistName: artist,
 		previewUrl: audioFile,
 		artworkUrl100: artwork,
-		// rename trackName from API to title
 		trackName: title,
 		collectionName: album,
 	}: SongFromITunes) => {
 		return { id, artist, audioFile, artwork, title, album } as Song;
 	};
 
-	// template
 	return (
 		<article className="tunes">
 			<h1>Tunes</h1>
