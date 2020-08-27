@@ -1,28 +1,34 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import React, { FormEvent, ChangeEvent, useRef } from 'react';
+import { debounce } from 'lodash-es';
 
 // styles
 import './TunesSearchForm.scss';
 
 // props
 interface Props {
-	// function returns nothing, but send data type string
-	searchQuery: string;
-	onInputChange: (data: string) => void;
-	onSearchFormSubmit: (data: string) => void;
+	// function returns nothing, but send query type string
+	onSearch: (query: string) => void;
 }
 
 // component
 const TunesSearchForm: React.FC<Props> = (props) => {
-	const { searchQuery } = props;
+	const searchInput = useRef<HTMLInputElement>(null);
+
 	// submit form
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		props.onSearchFormSubmit(searchQuery);
+		searchForMusic();
 	};
 
-	// input element
-	const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-		props.onInputChange(e.target.value);
+	// input element | debounce 500 ms
+	const handleInput = debounce((e: ChangeEvent<HTMLInputElement>) => {
+		searchForMusic();
+	}, 500);
+
+	// search for music
+	const searchForMusic = () => {
+		let searchString = searchInput.current?.value;
+		if (searchString) props.onSearch(searchString);
 	};
 
 	// template
@@ -30,8 +36,9 @@ const TunesSearchForm: React.FC<Props> = (props) => {
 		<div>
 			<form onSubmit={handleSubmit}>
 				<input
+					autoFocus
 					type="text"
-					value={searchQuery}
+					ref={searchInput}
 					onChange={handleInput}
 					className="search"
 				/>

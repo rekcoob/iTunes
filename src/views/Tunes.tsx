@@ -1,42 +1,62 @@
 import React, { useState } from 'react';
+import { Song } from '../types';
+import axios from 'axios';
 
 // children
 import TunesSearchForm from '../components/tunes/TunesSearchForm';
 import TunesList from '../components/tunes/TunesList';
 
+// data types
+interface SongFromITunes {
+	trackId: number;
+	artistName: string;
+	previewUrl: string;
+	artworkUrl100?: string;
+	trackName: string;
+	collectionName: string;
+	kind?: string;
+}
+
 // component
 const Tunes: React.FC = () => {
 	// state
-	const [searchQuery, setSearchQuery] = useState('');
-	const [songs, setSongs] = useState([
-		{ id: 1, artist: 'Great Artist', name: 'Great Song' },
-		{ id: 2, artist: 'Grtist', name: 'Greang' },
-		{ id: 3, artist: 'Artist', name: 'Gr' },
-	]);
+	const [songs, setSongs] = useState([]);
 
-	// callbacks
-	const handleSearchFormSubmit = (data: string) => {
-		const newSong = {
-			id: Math.max(...songs.map((s) => s.id)) + 1,
-			artist: data,
-			name: data,
-		};
-		setSongs([...songs, newSong]);
+	// callback
+	const handleSearch = (query: string) => {
+		axios
+			.get(
+				`https://itunes.apple.com/search
+			?term=${encodeURI(query)}
+			&entity=musicTrack
+			&limit=5`
+			)
+			.then((response) => {
+				let iTunesSongs = response.data.results
+					.filter((song: SongFromITunes) => song.kind === 'song')
+					.map((song: SongFromITunes) => extractData(song));
+
+				setSongs(iTunesSongs);
+			});
 	};
 
-	const handleInputChange = (data: string) => {
-		setSearchQuery(data);
+	// rename trackName to title
+	const extractData = ({
+		trackId: id,
+		artistName: artist,
+		previewUrl: audioFile,
+		artworkUrl100: artwork,
+		trackName: title,
+		collectionName: album,
+	}: SongFromITunes) => {
+		return { id, artist, audioFile, artwork, title, album } as Song;
 	};
 
 	// template
 	return (
 		<article className="tunes">
 			<h1>Tunes</h1>
-			<TunesSearchForm
-				searchQuery={searchQuery}
-				onInputChange={handleInputChange}
-				onSearchFormSubmit={handleSearchFormSubmit}
-			/>
+			<TunesSearchForm onSearch={handleSearch} />
 			<TunesList songs={songs} />
 		</article>
 	);

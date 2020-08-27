@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link, NavLink, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+
 // styles & assets
 import './App.scss';
-import logo from './assets/logo.svg';
+
 // components
 import TheNavigation from './components/TheNavigation';
 // views

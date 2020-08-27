@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Song } from '../../types';
 // styles
-import './TunesSearchForm.scss';
+import './TunesList.scss';
+
+// children
+import TunesSong from './TunesSong';
 
 // props
 interface Props {
@@ -17,7 +20,9 @@ const TunesList: React.FC<Props> = (props) => {
 	return (
 		<ul className="tunes-list">
 			{songs.map((song) => (
-				<li key={song.id}>{JSON.stringify(song)}</li>
+				<li key={song.id}>
+					<TunesSong song={song} />
+				</li>
 			))}
 		</ul>
 	);
