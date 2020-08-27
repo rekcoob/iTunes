@@ -40,12 +40,12 @@ const Tunes: React.FC = () => {
 			});
 	};
 
-	// rename trackName to title
 	const extractData = ({
 		trackId: id,
 		artistName: artist,
 		previewUrl: audioFile,
 		artworkUrl100: artwork,
+		// rename trackName from API to title
 		trackName: title,
 		collectionName: album,
 	}: SongFromITunes) => {

@@ -7,11 +7,12 @@ import './Home.scss';
 import logo from '../assets/logo.svg';
 
 const Home: React.FC = () => {
-	const [title] = useState('React, whee!!');
+	const [title] = useState('React Tunes');
 
-	useEffect(() => {
-		document.title = title;
-	});
+	// change title with state
+	// useEffect(() => {
+	// 	document.title = title;
+	// });
 
 	return (
 		<div className="home">
@@ -20,10 +21,10 @@ const Home: React.FC = () => {
 			<h1>{title}</h1>
 
 			<p>
-				Hot singles in your area. <br />
-				Hotter react in your&nbsp;
+				Play a song that you like. <br />
+				iTunes API&nbsp;
 				<a
-					href="https://reactjs.org/docs"
+					href="https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api"
 					target="_blank"
 					rel="noopener noreferrer"
 				>

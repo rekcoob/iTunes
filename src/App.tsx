@@ -6,6 +6,7 @@ import './App.scss';
 
 // components
 import TheNavigation from './components/TheNavigation';
+
 // views
 import Home from './views/Home';
 import Tunes from './views/Tunes';

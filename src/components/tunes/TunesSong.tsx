@@ -14,10 +14,19 @@ interface Props {
 const TunesSong: React.FC<Props> = (props) => {
 	const { song } = props;
 
+	// // side effect
+	// // only do once, when componentdidmount, [] makes it once
+	// useEffect(() => {
+	// 	// api for example
+	// 	fetch('https://api.myjson.com/bins/zg7ze')
+	// 		.then((res) => res.json())
+	// 		.then(console.log);
+	// }, []);
+
 	// make it pretty
-	// songify - 100 characters + ...
+	// songify: 100 characters + ...
 	// useMemo makes function only change when title or artist changed
-	// 1st param function to fire, 2nd params - items to change
+	// 1st param: function to fire, 2nd param: items to change
 	const songify = useMemo(
 		() => (song: Song): string => {
 			const newTitle = song.artist + ' - ' + song.title;
@@ -26,16 +35,9 @@ const TunesSong: React.FC<Props> = (props) => {
 		[song.title, song.artist]
 	);
 
-	// side effect
-	// only do once, when componentdidmount, [] makes it once
-	useEffect(() => {
-		fetch('https://api.myjson.com/bins/zg7ze')
-			.then((res) => res.json())
-			.then(console.log);
-	}, []);
-
-	// if len not set - default 55
-	// shorten - 55 characters + ...
+	// make it short
+	// shorten: 55 characters + ...
+	// if len not set: default 55
 	const shorten = (str: string, len = 55): string => {
 		// truncate: add ... on end
 		return truncate(str, { length: len });

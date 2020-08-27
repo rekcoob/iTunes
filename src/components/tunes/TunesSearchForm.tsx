@@ -1,4 +1,4 @@
-import React, { FormEvent, ChangeEvent, useRef } from 'react';
+import React, { useRef, FormEvent, ChangeEvent } from 'react';
 import { debounce } from 'lodash-es';
 
 // styles
@@ -6,12 +6,13 @@ import './TunesSearchForm.scss';
 
 // props
 interface Props {
-	// function returns nothing, but send query type string
+	// function returns nothing, but sends query of type string
 	onSearch: (query: string) => void;
 }
 
 // component
 const TunesSearchForm: React.FC<Props> = (props) => {
+	// ref
 	const searchInput = useRef<HTMLInputElement>(null);
 
 	// submit form
@@ -20,7 +21,8 @@ const TunesSearchForm: React.FC<Props> = (props) => {
 		searchForMusic();
 	};
 
-	// input element | debounce 500 ms
+	// input element
+	// debounce 500 ms: function fires 0.5s after stop typing
 	const handleInput = debounce((e: ChangeEvent<HTMLInputElement>) => {
 		searchForMusic();
 	}, 500);
